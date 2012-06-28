@@ -14,7 +14,7 @@
 
 import os
 from setuptools import setup
-from pyccuracy import Version
+Version="1.2.47"
 
 def find_packages():
     ''' Pyccuracy`s own find_packages is being used to avoid setuptools` 
@@ -56,6 +56,10 @@ setup(
         'pyccuracy.languages.data': ['*.txt'],
         'pyccuracy.xslt': ['*.xslt'],
     },
+
+    setup_requires=[
+        "selenium",
+    ],
 
     install_requires=[
         "selenium",
