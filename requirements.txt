@@ -1,0 +1,6 @@
+# Requirements for development of this project
+coverage
+lxml
+mocker
+nose
+selenium
