@@ -42,7 +42,7 @@ class SeleniumDriver(BaseDriver):
         if not url:
             url = self.context.settings.base_url
         self.start_selenium(url)
-        
+
     def start_selenium(self, url):
         host = self.context.settings.extra_args.get("selenium.server", "localhost")
         port = self.context.settings.extra_args.get("selenium.port", 4444)
@@ -60,7 +60,7 @@ class SeleniumDriver(BaseDriver):
 
     def stop_test(self):
         self.stop_selenium()
-    
+
     def stop_selenium(self):
         self.selenium.stop()
 
@@ -71,6 +71,10 @@ class SeleniumDriver(BaseDriver):
 
     def page_open(self, url):
         self.selenium.open(url)
+
+    def go_back(self):
+        self.selenium.go_back()
+        self.wait_for_page()
 
     def wait_for_page(self, timeout=30000):
         self.selenium.wait_for_page_to_load(timeout)
@@ -261,14 +265,14 @@ class SeleniumDriver(BaseDriver):
 
     def radio_uncheck(self, radio_selector):
         self.selenium.uncheck(radio_selector)
-        
+
     def get_table_rows(self, table_selector):
         rows = []
         row_count = int(self.get_xpath_count(table_selector + "/tbody/tr"))
-        
+
         for row_index in range(row_count):
             row = []
-            cell_count = int(self.get_xpath_count(table_selector + 
+            cell_count = int(self.get_xpath_count(table_selector +
                                                 "/tbody/tr[%d]/td" % \
                                                 (row_index + 1)))
             for cell_index in range(cell_count):
@@ -280,10 +284,10 @@ class SeleniumDriver(BaseDriver):
             rows.append(row)
 
         return rows
-    
+
     def __str__(self):
         return self.__unicode__()
-    
+
     def __unicode__(self):
         return "SeleniumDriver at '%s:%s' using '%s' browser." % (self.context.settings.extra_args.get("selenium.server", "localhost"),
                 self.context.settings.extra_args.get("selenium.port", 4444),

@@ -22,7 +22,7 @@ class DriverInterface(object):
 
     def start_test(self, url=None):
         '''This method is responsible for starting a test, whether this means opening a browser window, connecting to some remote server or anything else.
-        
+
 This method is called before any scenarios begin.'''
         raise NotImplementedError
 
@@ -32,22 +32,26 @@ This method is called before any scenarios begin.'''
 
     def resolve_element_key(self, context, element_type, element_key):
         '''This method is responsible for transforming the element key for the given element type in something that the browser driver understands.
-        
+
         i.e.:
             resolve_element_key(context, 'some', 'textbox')
             this method call would go into context, get the current page, verify the xpath or css selector for the specified element and then return it.
-        
+
         You are free to implement this any way you'd like, though. One could implement this to return elements like:
             element type.element name as css selector, so a div with name myDiv would return div.myDiv.
 '''
         raise NotImplementedError
 
     def get_xpath_count(self, xpath):
-        '''Returns the number of occurrences in the current document for the given xpath.'''        
+        '''Returns the number of occurrences in the current document for the given xpath.'''
         raise NotImplementedError
 
     def page_open(self, url):
         '''This method navigates the browser to the given url.'''
+        raise NotImplementedError
+
+    def go_back(self, url):
+        '''This methods navigates to the previous URL in the browser history'''
         raise NotImplementedError
 
     def clean_input(self, input_selector):
@@ -165,8 +169,7 @@ This method is called before any scenarios begin.'''
     def get_select_options(self, select):
         '''This method returns a list of options for the given select.'''
         raise NotImplementedError
-    
+
     def get_table_rows(self, table_key):
         '''This method returns a list of rows for the given table.'''
         raise NotImplementedError
-        
