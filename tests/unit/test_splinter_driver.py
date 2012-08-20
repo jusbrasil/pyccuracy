@@ -192,16 +192,20 @@ class SplinterDriverTest(unittest.TestCase):
 
         context = Context(Settings())
         browser_mock = mocker.mock()
-        browser_mock.find_by_xpath('some element')
 
         element_mock = mocker.mock()
-        mocker.result(element_mock)
 
-        browser_mock.is_element_present_by_xpath('some element')
-        mocker.result(True)
+        browser_mock.find_by_xpath('some element')
+        mocker.result([])
+
+        element_mock = mocker.mock()
+
+        browser_mock.find_by_xpath('some element')
+        mocker.result(element_mock)
 
         element_mock.visible
         mocker.result(True)
+
 
         with mocker:
             driver = SplinterDriver(context, browser=browser_mock)
@@ -219,7 +223,7 @@ class SplinterDriverTest(unittest.TestCase):
         element_mock = mocker.mock()
         mocker.result(element_mock)
 
-        browser_mock.is_element_present_by_xpath('some element')
+        element_mock.visible
         mocker.result(True)
 
         mocker.count(min=1, max=None)
@@ -449,3 +453,25 @@ class SplinterDriverTest(unittest.TestCase):
         with mocker:
             driver = SplinterDriver(context, browser=browser_mock)
             driver.go_back()
+
+    def test_is_element_visible_with_element_removal_while_executing(self):
+        from selenium.common.exceptions import StaleElementReferenceException
+
+        mocker = Mocker()
+
+        context = Context(Settings())
+        browser_mock = mocker.mock()
+
+        xpath = '//div'
+
+        browser_mock.find_by_xpath(xpath)
+
+        element_mock = mocker.mock()
+        mocker.result(element_mock)
+        element_mock.visible
+        mocker.throw(StaleElementReferenceException)
+
+        with mocker:
+            driver = SplinterDriver(context, browser=browser_mock)
+            is_visible = driver.is_element_visible(xpath)
+            self.assertEqual(is_visible, False)

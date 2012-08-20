@@ -35,6 +35,7 @@ except ImportError:
 
 from pyccuracy.drivers import BaseDriver, DriverError
 from selenium_element_selector import *
+from selenium.common.exceptions import StaleElementReferenceException
 
 class SplinterDriver(BaseDriver):
     backend = 'splinter'
@@ -103,11 +104,20 @@ class SplinterDriver(BaseDriver):
         return self.browser.title
 
     def is_element_visible(self, element_selector):
-        element = self.browser.find_by_xpath(element_selector)
-        is_present = self.browser.is_element_present_by_xpath(element_selector)
 
-        if is_present:
-            return element.visible
+        element = self.browser.find_by_xpath(element_selector)
+
+        if element:
+            try:
+                return element.visible
+            except StaleElementReferenceException:
+                """
+                This happens because sometimes, while code is being execcuted,
+                the element can be removed from the DOM. Causing this exception.
+                In this case, we assume that the element is not visible, returning
+                False
+                """
+                return False
         return False
 
     def is_element_enabled(self, element):
