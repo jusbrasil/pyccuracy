@@ -256,7 +256,10 @@ class SeleniumWebdriver(BaseDriver):
                 elem = self._get_element(element_selector)
             except (NoSuchElementException, StaleElementReferenceException):
                 return True
-            if not elem.is_displayed():
+            try:
+                if not elem.is_displayed():
+                    return True
+            except (NoSuchElementException, StaleElementReferenceException):
                 return True
             time.sleep(interval)
 
