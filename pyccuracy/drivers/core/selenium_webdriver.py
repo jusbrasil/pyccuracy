@@ -83,6 +83,9 @@ class SeleniumWebdriver(BaseDriver):
     def page_open(self, url):
         self.webdriver.get(url)
 
+    def go_back(self):
+        self.webdriver.back()
+
     def clean_input(self, input_selector):
         self._get_element(input_selector).clear()
 

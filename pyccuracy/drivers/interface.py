@@ -50,7 +50,7 @@ This method is called before any scenarios begin.'''
         '''This method navigates the browser to the given url.'''
         raise NotImplementedError
 
-    def go_back(self, url):
+    def go_back(self):
         '''This methods navigates to the previous URL in the browser history'''
         raise NotImplementedError
 
