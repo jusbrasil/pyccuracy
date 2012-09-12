@@ -25,7 +25,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.select import Select
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 # except ImportError:
 #     selenium_available = False
 
@@ -98,7 +98,7 @@ class SeleniumWebdriver(BaseDriver):
     def is_element_visible(self, element_selector):
         try:
             return self._get_element(element_selector).is_displayed()
-        except NoSuchElementException:
+        except (NoSuchElementException, StaleElementReferenceException):
             return False
 
     def wait_for_page(self, timeout=30000):
@@ -225,7 +225,7 @@ class SeleniumWebdriver(BaseDriver):
                 elem = self._get_element(element_selector)
                 if elem.is_displayed():
                     return True
-            except NoSuchElementException:
+            except (NoSuchElementException, StaleElementReferenceException):
                 pass
             time.sleep(interval)
 
@@ -239,7 +239,7 @@ class SeleniumWebdriver(BaseDriver):
             elapsed += interval
             try:
                 elem = self._get_element(element_selector)
-            except NoSuchElementException:
+            except (NoSuchElementException, StaleElementReferenceException):
                 return True
             if not elem.is_displayed():
                 return True
