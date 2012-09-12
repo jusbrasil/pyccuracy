@@ -32,6 +32,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from pyccuracy.drivers import BaseDriver, DriverError
 from selenium_element_selector import *
 
+
 class SeleniumWebdriver(BaseDriver):
     backend = 'webdriver'
 
@@ -47,6 +48,10 @@ class SeleniumWebdriver(BaseDriver):
         port = self.context.settings.extra_args.get("selenium.port", 4444)
         server_url = 'http://%s:%s/wd/hub' % (host, str(port))
         browser_to_run = self.context.settings.browser_to_run
+
+        # maximize Chrome Browser
+        # http://stackoverflow.com/questions/3189430/how-do-i-maximize-the-browser-window-using-webdriver-selenium-2
+        webdriver.DesiredCapabilities.CHROME["chrome.switches"] = ["--start-maximized"]
 
         if hasattr(webdriver.DesiredCapabilities, browser_to_run.upper()):
             browser_to_run = getattr(webdriver.DesiredCapabilities, browser_to_run.upper())
