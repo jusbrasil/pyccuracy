@@ -96,6 +96,13 @@ class SeleniumWebdriver(BaseDriver):
         self.type_text(input_selector, text)
 
     def click_element(self, element_selector):
+
+        # move the mouse to scroll the window and make element visible 
+        chain = ActionChains(self.webdriver)
+        chain.move_to_element(self._get_element(element_selector))
+        chain.perform()
+
+        # click in the element
         return self._get_element(element_selector).click()
 
     def is_element_visible(self, element_selector):
