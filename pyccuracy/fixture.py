@@ -42,7 +42,7 @@ class Fixture(TimedItem):
         return story
 
     def get_status(self):
-        status = Status.Unknown
+        status = Status.Successful
         for story in self.stories:
             if story.status == Status.Failed:
                 return Status.Failed
