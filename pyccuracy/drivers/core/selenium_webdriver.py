@@ -177,6 +177,9 @@ class SeleniumWebdriver(BaseDriver):
     def get_class(self, element_selector):
         return self._get_element(element_selector).get_attribute('className')
 
+    def get_xpath_count(self, xpath):
+        return len(self.webdriver.find_elements_by_xpath(xpath))
+
     def get_element_markup(self, element_selector):
         got = self._get_element(element_selector).get_attribute('innerHTML')
         return got != "null" and got or ""
