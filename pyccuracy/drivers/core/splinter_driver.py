@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2009 Gabriel Jordão <gabrielpjordao@gmail.com>
-# Copyright (C) 2009 Osvaldo Matos Junior <tupy@jusbrasil.com.br>
+# Copyright (C) 2012 Gabriel Jordão <gabrielpjordao@gmail.com>
+# Copyright (C) 2012 Osvaldo Matos-Junior <tupy@jusbrasil.com.br>
 #
 # Licensed under the Open Software License ("OSL") v. 3.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -264,6 +264,18 @@ class SplinterDriver(BaseDriver):
     def get_xpath_count(self, xpath):
         elements = self.browser.find_by_xpath(xpath)
         return len(elements)
+
+    def get_dialog_text(self):
+        alert = self.browser.get_alert()
+        return alert.text
+
+    def accept_dialog(self):
+        alert = self.browser.get_alert()
+        alert.accept()
+
+    def dismiss_dialog(self):
+        alert = self.browser.get_alert()
+        alert.dismiss()
 
     def __get_attribute_value(self, element_selector, attribute):
         try:

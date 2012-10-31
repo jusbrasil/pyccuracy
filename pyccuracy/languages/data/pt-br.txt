@@ -110,6 +110,8 @@ textbox_clean_regex = ^(E )?[eE]u limpo a caixa de texto [\"](?P<textbox_name>.+
 
 table_match_regex = ^(E )?[eE]u vejo a tabela [\"](?P<table_name>.+)[\"] como:$
 
+dialog_has_text_and_confirm_regex = ^(E )?[eE]u espero uma janela com [\"](?P<message>.+)[\"] e confirmo$
+
 #Action Failure Messages
 page_go_to_failure = A url "%s" não é válida. Você esqueceu de usar o parâmetro -u (ou --url) ?
 page_go_to_with_parameters_failure = O parâmetro "%s" não é valido. Por favor use o formato "param 'valor' (e param2 'valor2' ...)".
@@ -172,6 +174,8 @@ textbox_is_empty_failure = A caixa de texto com nome ou id %s não está vazia e
 textbox_is_not_empty_failure = A caixa de texto com nome ou id %s está vazia e não deveria estar.
 
 table_invalid_data_failure = A tabela com nome ou id '%s' deveria ter a estrutura \n%s\n%s mas teve \n%s.
+
+dialog_has_text_failure = A mensagem na janela atual deveria ser "%s", mas é "%s"
 
 timeout_failure = A ação de esperar a página carregar não foi executada com sucesso após um timeout de %d milisegundos.
 

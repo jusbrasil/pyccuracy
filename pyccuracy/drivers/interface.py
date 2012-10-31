@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2009 Bernardo Heynemann <heynemann@gmail.com>
 # Copyright (C) 2009 Gabriel Falcão <gabriel@nacaolivre.org>
+# Copyright (C) 2012 Osvaldo Matos-Junior <tupy@jusbrasil.com.br>
 #
 # Licensed under the Open Software License ("OSL") v. 3.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -172,4 +173,16 @@ This method is called before any scenarios begin.'''
 
     def get_table_rows(self, table_key):
         '''This method returns a list of rows for the given table.'''
+        raise NotImplementedError
+
+    def get_dialog_text(self):
+        '''This method gets the text for the opened dialog.'''
+        raise NotImplementedError
+
+    def accept_dialog(self):
+        '''This method accepts the current opened dialog.'''
+        raise NotImplementedError
+
+    def dismiss_dialog(self):
+        '''This method refuses the current opened dialog.'''
         raise NotImplementedError

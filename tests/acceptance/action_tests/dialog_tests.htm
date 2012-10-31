@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Pyccuracy Tests - Dialog</title>
+        <script type="text/javascript">
+            function showDialog() {
+                var result = confirm('You agree?');
+                if (result) {
+                    document.write('Yes');
+                } else {
+                    document.write('No');
+                }
+            }
+            function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+            r(showDialog);
+        </script>
+    </head>
+    <body>
+	</body>
+</html>

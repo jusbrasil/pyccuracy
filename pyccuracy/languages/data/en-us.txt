@@ -110,6 +110,8 @@ textbox_clean_regex = ^(And )?I clean [\"](?P<textbox_name>.+)[\"] textbox$
 
 table_match_regex = ^(And )?I see [\"](?P<table_name>.+)[\"] table as:$
 
+dialog_has_text_and_confirm_regex = ^(And )?I expect a dialog with [\"](?P<message>.+)[\"] and confirm$
+
 #Action Failure Messages
 page_go_to_failure = The url "%s" is not valid. Did you forget to use the -u (or --url) parameter ?
 page_go_to_with_parameters_failure = The parameter "%s" is not valid. Please use "param 'value' (and param2 'value2' ...)" format.
@@ -173,6 +175,8 @@ textbox_is_empty_failure = The textbox with name or id %s is not empty.
 textbox_is_not_empty_failure = The textbox with name or id %s is empty.
 
 table_invalid_data_failure = The table with name or id %s should have structure of \n%s\n%s but was \n%s.
+
+dialog_has_text_failure = The current dialog message should be "%s", but it is "%s"
 
 timeout_failure = The action wait for page to load timed out after waiting for %d ms.
 

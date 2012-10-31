@@ -102,7 +102,7 @@ class SeleniumWebdriver(BaseDriver):
 
     def click_element(self, element_selector):
 
-        # move the mouse to scroll the window and make element visible 
+        # move the mouse to scroll the window and make element visible
         chain = ActionChains(self.webdriver)
         chain.move_to_element(self._get_element(element_selector))
         chain.perform()
@@ -288,6 +288,18 @@ class SeleniumWebdriver(BaseDriver):
             rows.append(row)
 
         return rows
+
+    def get_dialog_text(self):
+        alert = self.webdriver.switch_to_alert()
+        return alert.text
+
+    def accept_dialog(self):
+        alert = self.webdriver.switch_to_alert()
+        alert.accept()
+
+    def dismiss_dialog(self):
+        alert = self.webdriver.switch_to_alert()
+        alert.dismiss()
 
     def __str__(self):
         return self.__unicode__()

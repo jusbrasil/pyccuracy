@@ -475,3 +475,57 @@ class SplinterDriverTest(unittest.TestCase):
             driver = SplinterDriver(context, browser=browser_mock)
             is_visible = driver.is_element_visible(xpath)
             self.assertEqual(is_visible, False)
+
+    def test_dialog_text(self):
+
+        mocker = Mocker()
+
+        text = 'Some text'
+        context = Context(Settings())
+        browser_mock = mocker.mock()
+
+        browser_mock.get_alert()
+
+        alert_mock = mocker.mock()
+        mocker.result(alert_mock)
+        alert_mock.text
+        mocker.result(text)
+
+        with mocker:
+            driver = SplinterDriver(context, browser=browser_mock)
+            result = driver.get_dialog_text()
+            self.assertEqual(result, text)
+
+    def test_accept_dialog(self):
+
+        mocker = Mocker()
+
+        context = Context(Settings())
+        browser_mock = mocker.mock()
+
+        browser_mock.get_alert()
+
+        alert_mock = mocker.mock()
+        mocker.result(alert_mock)
+        alert_mock.accept()
+
+        with mocker:
+            driver = SplinterDriver(context, browser=browser_mock)
+            driver.accept_dialog()
+
+    def test_accept_dialog(self):
+
+        mocker = Mocker()
+
+        context = Context(Settings())
+        browser_mock = mocker.mock()
+
+        browser_mock.get_alert()
+
+        alert_mock = mocker.mock()
+        mocker.result(alert_mock)
+        alert_mock.dismiss()
+
+        with mocker:
+            driver = SplinterDriver(context, browser=browser_mock)
+            driver.dismiss_dialog()

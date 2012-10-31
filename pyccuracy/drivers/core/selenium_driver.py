@@ -285,6 +285,23 @@ class SeleniumDriver(BaseDriver):
 
         return rows
 
+    # Selenium RC doesn't allow to get dialog message without accept/dismiss it.
+    # Also, we should to set the confirmation action before open the dialog.
+    # See: http://code.google.com/p/selenium/issues/detail?id=27
+    #
+    # def get_dialog_text(self):
+    #     # put on: wait_for_page
+    #     # self.exec_js('window._confirm = window.confirm; window.confirm = function(msg){ document.confirmMsg = msg; window._confirm(msg); }')
+    #     return self.exec_js('document.confirmMsg')
+
+    # def accept_dialog(self):
+    #     self.selenium.choose_ok_on_next_confirmation()
+    #     self.selenium.get_confirmation()
+
+    # def dismiss_dialog(self):
+    #     self.selenium.choose_cancel_on_next_confirmation()
+    #     self.selenium.get_confirmation()
+
     def __str__(self):
         return self.__unicode__()
 

@@ -1,0 +1,12 @@
+As a Pyccuracy User
+I want to test the confirm dialog action
+So that I can make sure Pyccuracy works
+
+Scenario 1 - Checking that we can match the message and confirm the dialog
+Given
+    I go to "dialog_tests.htm"
+When
+    #The Page is Loaded
+Then
+    I expect a dialog with "You agree?" and confirm
+    I see that current page contains "Yes"

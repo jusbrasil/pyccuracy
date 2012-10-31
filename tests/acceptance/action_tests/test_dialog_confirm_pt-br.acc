@@ -1,0 +1,12 @@
+Como um usuário do Pyccuracy
+Eu quero testar a ação de confirmar um janela
+Para garantir que o Pyccuracy funciona em outras línguas
+
+Cenário 1 - Verificando se a mensagem da janela confere e confirmando
+Dado que
+    Eu navego para "dialog_tests.htm"
+Quando
+    #A página carrega
+Então
+    Eu espero uma janela com "You agree?" e confirmo
+    Eu vejo que a página atual contém "Yes"
