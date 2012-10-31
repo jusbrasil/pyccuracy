@@ -90,6 +90,9 @@ class SeleniumWebdriver(BaseDriver):
 
     def go_back(self):
         self.webdriver.back()
+  
+    def refresh(self):
+        self.webdriver.refresh()
 
     def clean_input(self, input_selector):
         self._get_element(input_selector).clear()

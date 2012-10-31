@@ -52,8 +52,13 @@ This method is called before any scenarios begin.'''
         raise NotImplementedError
 
     def go_back(self):
-        '''This methods navigates to the previous URL in the browser history'''
+        '''This methods navigates to the previous URL in the browser history.'''
         raise NotImplementedError
+
+    def refresh(self):
+        '''Refresh the current page.'''
+        raise NotImplementedError
+
 
     def clean_input(self, input_selector):
         '''This method wipes the text out of the given textbox'''

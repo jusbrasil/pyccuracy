@@ -75,6 +75,10 @@ class SeleniumDriver(BaseDriver):
     def go_back(self):
         self.selenium.go_back()
         self.wait_for_page()
+    
+    def refresh(self):
+        self.selenium.refresh()
+        self.wait_for_page()
 
     def wait_for_page(self, timeout=30000):
         self.selenium.wait_for_page_to_load(timeout)
@@ -86,8 +90,16 @@ class SeleniumDriver(BaseDriver):
         return self.selenium.get_title()
 
     def is_element_visible(self, element_selector):
+        is_present = False
+        error_message = "ERROR: Invalid xpath"
+        try:
+            is_present = self.selenium.is_element_present(element_selector)
+        except Exception, error:
+            if error_message in error.message:
+                is_present = False
+            else:
+                raise error
         error_message = "ERROR: Element %s not found" % (element_selector)
-        is_present = self.selenium.is_element_present(element_selector)
         if is_present:
             try:
                 is_present = self.selenium.is_visible(element_selector)

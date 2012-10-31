@@ -268,3 +268,17 @@ def test_going_back():
         driver = SeleniumDriver(context, selenium=selenium_mock)
         driver.go_back()
 
+def test_refresh():
+
+    mocker = Mocker()
+
+    context = Context(Settings())
+    selenium_mock = mocker.mock()
+
+    selenium_mock.refresh()
+    selenium_mock.wait_for_page_to_load(30000)
+
+    with mocker:
+        driver = SeleniumDriver(context, selenium=selenium_mock)
+        driver.refresh()
+

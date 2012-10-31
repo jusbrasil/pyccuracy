@@ -454,6 +454,21 @@ class SplinterDriverTest(unittest.TestCase):
             driver = SplinterDriver(context, browser=browser_mock)
             driver.go_back()
 
+    def test_refresh(self):
+
+        mocker = Mocker()
+
+        context = Context(Settings())
+        browser_mock = mocker.mock()
+
+        browser_mock.reload()
+        browser_mock.evaluate_script('document.readyState')
+        mocker.result( 'complete')
+
+        with mocker:
+            driver = SplinterDriver(context, browser=browser_mock)
+            driver.refresh()
+
     def test_is_element_visible_with_element_removal_while_executing(self):
         from selenium.common.exceptions import StaleElementReferenceException
 

@@ -8,7 +8,7 @@ def test_get_action():
     action = viewer.get_actions('select_does_not_have_selected_value')
     assert 'select_does_not_have_selected_value' in action
     assert action.get('select_does_not_have_selected_value') == '(And )I see "select_name" select does not have selected value of "value"'
-    
+
     viewer = LanguageViewer(language='pt-br')
     action = viewer.get_actions('select_does_not_have_selected_value')
     assert 'select_does_not_have_selected_value' in action
@@ -16,7 +16,7 @@ def test_get_action():
 
 def test_make_regex_readable_for_pt_br():
     viewer = LanguageViewer()
-    
+
     assert viewer.make_it_readable(r'^(E )?[eE]u vejo que a imagem [\"](?P<image_name>.+)[\"] tem src de [\"](?P<src>.+)[\"]$')\
             == '(E )[eE]u vejo que a imagem "image_name" tem src de "src"'
 
@@ -112,6 +112,9 @@ def test_make_regex_readable_for_pt_br():
 
     assert viewer.make_it_readable(r'^(E )?[eE]u seleciono o item com texto [\"](?P<text>.+)[\"] na select [\"](?P<select_name>.+)[\"]$')\
             == '(E )[eE]u seleciono o item com texto "text" na select "select_name"'
+
+    assert viewer.make_it_readable(r'^(E )?[eE]u atualizo esta página$')\
+            == '(E )[eE]u atualizo esta página'
 
     assert viewer.make_it_readable(r'^(E )?[eE]u vejo o título [\"](?P<title>.+)[\"]$')\
             == '(E )[eE]u vejo o título "title"'
@@ -289,6 +292,9 @@ def test_make_regex_readable_for_en_us():
 
     assert viewer.make_it_readable(r'^(And )?I select the option with text of [\"](?P<text>.+)[\"] in [\"](?P<select_name>.+)[\"] select$')\
             == '(And )I select the option with text of "text" in "select_name" select'
+
+    assert viewer.make_it_readable(r'^(And )?I refresh this page$')\
+            == '(And )I refresh this page'
 
     assert viewer.make_it_readable(r'^(And )?I see [\"](?P<title>.+)[\"] title$')\
             == '(And )I see "title" title'

@@ -92,6 +92,10 @@ class SplinterDriver(BaseDriver):
         self.browser.back()
         self.wait_for_page()
 
+    def refresh(self):
+        self.browser.reload()
+        self.wait_for_page()
+
     def wait_for_page(self, timeout=30000):
         while self.browser.evaluate_script('document.readyState') != 'complete':
             time.sleep(0.05)

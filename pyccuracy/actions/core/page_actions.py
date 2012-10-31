@@ -31,7 +31,7 @@ class PageGoToAction(ActionBase):
 
 h3. Description
 
-This action tells Pyccuracy that the current browser driver ([[Creating a custom Browser Driver]]) should navigate to the URL that's registered in the specified page. Other than that, it also changes that current page in Pyccuracy's context to the specified one. This means that Pyccuracy will start using the registered elements and url in the specified page. 
+This action tells Pyccuracy that the current browser driver ([[Creating a custom Browser Driver]]) should navigate to the URL that's registered in the specified page. Other than that, it also changes that current page in Pyccuracy's context to the specified one. This means that Pyccuracy will start using the registered elements and url in the specified page.
 
 For more information on creating custom pages check the [[Creating custom Pages]] page.
 
@@ -44,10 +44,10 @@ This action also issues automatically a wait for page to load action after navig
     def execute(self, context, url):
         page, resolved_url = self.resolve_url(context, url)
         self.go_to_page(context, url, page, resolved_url)
-    
+
     def resolve_url(self, context, url):
         return PageRegistry.resolve(context.settings, url.replace('"', ''), must_raise=False)
-    
+
     def go_to_page(self, context, url, page, resolved_url):
         if not resolved_url or (not url.startswith('"') and not page):
             raise self.failed(context.language.format("page_go_to_failure", url))
@@ -56,7 +56,7 @@ This action also issues automatically a wait for page to load action after navig
         context.browser_driver.wait_for_page()
         context.url = resolved_url
         if page:
-            # If the resolved page is the same as the current one, 
+            # If the resolved page is the same as the current one,
             # there's not need to override the context page, risking
             # losing all the re-registered elements of the users.
             if not isinstance(context.current_page, page):
@@ -91,7 +91,7 @@ Parameters will be automatically included in the URL when you call these pages. 
         params = self.parse_parameters(context, parameters)
         resolved_url = self.replace_url_paremeters(resolved_url, params)
         super(PageGoToWithParametersAction, self).go_to_page(context, url, page, resolved_url)
-    
+
     def parse_parameters(self, context, parameters):
         params = {}
         pattern = re.compile(r'^(.+)\s\"(.+)\"$')
@@ -101,7 +101,7 @@ Parameters will be automatically included in the URL when you call these pages. 
                 raise self.failed(context.language.format("page_go_to_with_parameters_failure", parameters))
             params[match.group(1)] = match.group(2)
         return params
-    
+
     def replace_url_paremeters(self, url, parameters):
         resolved_url = url
         for item in parameters.keys():
@@ -127,7 +127,7 @@ Other than that, this action does not do anything. The main purpose of this acti
         page, resolved_url = PageRegistry.resolve(context.settings, url, must_raise=False)
 
         if page:
-            # If the resolved page is the same as the current one, 
+            # If the resolved page is the same as the current one,
             # there's not need to override the context page, risking
             # losing all the re-registered elements of the users.
             if not isinstance(context.current_page, page):
@@ -137,6 +137,21 @@ Other than that, this action does not do anything. The main purpose of this acti
             context.url = resolved_url
         else:
             raise self.failed(context.language.format("page_am_in_failure", url))
+
+class PageRefreshAction(ActionBase):
+    '''h3. Examples
+
+  * And I refresh this page
+
+h3. Description
+
+Simulates the user clicking the "refresh" button on their browser. '''
+    __builtin__ = True
+    regex = LanguageItem("page_refresh_regex")
+
+    def execute(self, context, none=None):
+
+        context.browser_driver.refresh()
 
 class PageSeeTitleAction(ActionBase):
     '''h3. Example

@@ -1,0 +1,13 @@
+As a Pyccuracy User
+I want to test that I can refresh the current page
+So that I can make sure Pyccuracy works
+
+Scenario 1 - Checking that refresh page works
+Given
+    I go to "page_tests.htm"
+    I see "Pyccuracy Tests - Page" title
+When
+    I refresh this page
+Then
+    I see "Pyccuracy Tests - Page" title
+

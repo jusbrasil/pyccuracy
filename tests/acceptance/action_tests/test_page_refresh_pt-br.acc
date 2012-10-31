@@ -1,0 +1,13 @@
+Como um usuário do Pyccuracy
+Eu quero testar a ação de esperar a página recarregar
+Para garantir que o Pyccuracy funciona em outras línguas
+
+Cenário 1 - Aguardando a página de recarregar
+Dado que
+    Eu navego para "page_tests.htm"
+    Eu vejo o título "Pyccuracy Tests - Page"
+Quando
+    Eu atualizo esta página
+Então
+    Eu vejo o título "Pyccuracy Tests - Page"
+

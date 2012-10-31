@@ -37,24 +37,24 @@ class FakeContext(object):
 #Go To Action
 
 def test_page_go_to_action_calls_the_right_browser_driver_methods():
-    
+
     mocker = Mocker()
-    
+
     context = FakeContext(mocker)
-    
+
     context.browser_driver.page_open("file:///some_url")
     context.browser_driver.wait_for_page()
 
     with mocker:
         action = PageGoToAction()
-    
+
         action.execute(context, url='"some_url"')
 
 def test_page_go_to_action_sets_context_current_url():
     mocker = Mocker()
-    
+
     context = FakeContext(mocker)
-    
+
     context.browser_driver.page_open("file:///some_url")
     context.browser_driver.wait_for_page()
 
@@ -68,11 +68,11 @@ def test_page_go_to_action_sets_context_current_url():
 def test_page_go_to_action_sets_page_if_page_is_supplied():
     class SomePage(Page):
         url = "some"
-        
+
     mocker = Mocker()
-    
+
     context = FakeContext(mocker)
-    
+
     context.browser_driver.page_open("file:///some")
     context.browser_driver.wait_for_page()
 
@@ -84,11 +84,11 @@ def test_page_go_to_action_sets_page_if_page_is_supplied():
     assert isinstance(context.current_page, SomePage)
 
 def test_page_go_to_action_raises_with_invalid_page():
-        
+
     mocker = Mocker()
-    
+
     context = FakeContext(mocker)
-    
+
     context.language.format("page_go_to_failure", "http://www.google.com")
     mocker.result("Error Message")
 
@@ -102,53 +102,53 @@ def test_page_go_to_action_raises_with_invalid_page():
 #Go To With Parameters Action
 
 def test_page_go_to_with_parameters_action_raises_error_when_parameters_are_invalid():
-        
+
     mocker = Mocker()
-    
+
     action = PageGoToWithParametersAction()
-    
+
     context = FakeContext(mocker)
-    
+
     context.language.format('page_go_to_with_parameters_failure', 'Blah blahabla blah')
     mocker.result('Error Message')
-    
+
     with mocker:
-                    
+
         assert_raises(ActionFailedError, action.parse_parameters, context, 'Blah blahabla blah')
 
 def test_page_go_to_with_parameters_action_parses_parameters():
-        
+
     mocker = Mocker()
-    
+
     action = PageGoToWithParametersAction()
-    
+
     context = FakeContext(mocker)
-    
+
     with mocker:
         params = action.parse_parameters(context, 'parameter1 "value1"')
         assert params == { 'parameter1':'value1' }
-        
+
         params = action.parse_parameters(context, 'query_string "?another+value=x%20y%20z"')
         assert params == { 'query_string':'?another+value=x%20y%20z' }
 
 def test_page_go_to_with_parameters_action_parses_many_parameters():
-        
+
     mocker = Mocker()
-    
+
     action = PageGoToWithParametersAction()
-    
+
     context = FakeContext(mocker)
-    
+
     with mocker:
         params = action.parse_parameters(context, 'parameter1 "value1", parameter2 "value2"')
         assert params == { 'parameter1':'value1', 'parameter2':'value2' }
-    
+
         params = action.parse_parameters(context, 'query_string "?another+value=x%20y%20z", user "gchapiewski"')
         assert params == { 'query_string':'?another+value=x%20y%20z', 'user':'gchapiewski' }
-        
+
         params = action.parse_parameters(context, 'parameter1 "value1", parameter2 "value2", param3 "value3"')
         assert params == { 'parameter1':'value1', 'parameter2':'value2', 'param3':'value3' }
-    
+
 def test_page_go_to_with_parameters_action_resolves_url_for_parameter():
     action = PageGoToWithParametersAction()
     url = '/user/<username>'
@@ -160,15 +160,15 @@ def test_page_go_to_with_parameters_action_resolves_url_for_many_parameters():
     url = '/search.php?q=<query>&order=<order>&p=<page>'
     params = {'query':'xpto', 'order':'desc', 'page':'10' }
     assert action.replace_url_paremeters(url, params) == '/search.php?q=xpto&order=desc&p=10'
-    
+
 #End Go To With Parameters Action
 
 #Am In Action
 
 def test_page_am_in_action_calls_the_right_browser_driver_methods():
-        
+
     mocker = Mocker()
-    
+
     class SomePage(Page):
         url = "http://www.somepage.com"
 
@@ -176,15 +176,15 @@ def test_page_am_in_action_calls_the_right_browser_driver_methods():
 
     with mocker:
         action = PageAmInAction()
-    
+
         action.execute(context, url="http://www.somepage.com")
         assert isinstance(context.current_page, SomePage)
         assert context.url == "http://www.somepage.com"
 
 def test_page_am_in_action_sets_page_if_page_is_supplied():
-        
+
     mocker = Mocker()
-    
+
     class SomePage1(Page):
         url = "http://www.somepage.com"
 
@@ -192,23 +192,23 @@ def test_page_am_in_action_sets_page_if_page_is_supplied():
 
     with mocker:
         action = PageAmInAction()
-    
+
         action.execute(context, url="Some Page 1")
         assert isinstance(context.current_page, SomePage1)
         assert context.url == "http://www.somepage.com"
 
 def test_page_am_in_action_raises_if_no_page():
-        
+
     mocker = Mocker()
 
     context = FakeContext(mocker)
-    
+
     context.language.format("page_am_in_failure", "http://www.google.com")
     mocker.result("Error Message")
-    
+
     with mocker:
         action = PageAmInAction()
-    
+
         assert_raises(ActionFailedError, action.execute, context=context, url="http://www.google.com",
                       exc_pattern=re_compile(r'^Error Message$'))
 
@@ -217,18 +217,36 @@ def test_page_am_in_action_raises_if_no_page():
 # Page See Title Action
 
 def test_page_see_title_action_calls_the_right_browser_driver_methods():
-        
+
     mocker = Mocker()
 
     context = FakeContext(mocker)
-    
+
     context.browser_driver.get_title()
     mocker.result("some title")
-    
+
     with mocker:
 
         action = PageSeeTitleAction()
-    
+
         action.execute(context, title="some title")
 
 #End Page See Title Action
+
+#Page Refresh Action
+
+def test_page_refresh_action_calls_the_right_browser_driver_methods():
+
+    mocker = Mocker()
+
+    context = FakeContext(mocker)
+
+    context.browser_driver.refresh()
+
+    with mocker:
+
+        action = PageRefreshAction()
+
+        action.execute(context)
+
+#End Page Refresh Action
