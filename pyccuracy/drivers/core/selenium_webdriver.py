@@ -52,6 +52,12 @@ class SeleniumWebdriver(BaseDriver):
         # maximize Chrome Browser
         # http://stackoverflow.com/questions/3189430/how-do-i-maximize-the-browser-window-using-webdriver-selenium-2
         webdriver.DesiredCapabilities.CHROME["chrome.switches"] = ["--start-maximized"]
+        prefs = {
+          "translate.enabled": False,
+          "profile.password_manager_enabled": False
+        }
+        webdriver.DesiredCapabilities.CHROME["chrome.prefs"] = prefs
+
 
         if hasattr(webdriver.DesiredCapabilities, browser_to_run.upper()):
             browser_to_run = getattr(webdriver.DesiredCapabilities, browser_to_run.upper())
