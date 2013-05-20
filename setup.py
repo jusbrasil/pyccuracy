@@ -58,11 +58,11 @@ setup(
     },
 
     setup_requires=[
-        "selenium==2.25.0",
+        "selenium==2.32.0",
     ],
 
     install_requires=[
-        "selenium==2.25.0",
+        "selenium==2.32.0",
     ],
 
     entry_points = {
