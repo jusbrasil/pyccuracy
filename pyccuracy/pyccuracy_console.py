@@ -84,7 +84,7 @@ def update_progress(fixture, scenario, scenario_index):
     global no_progress
     global prg
     global scenarios_ran
-    
+
     if not scenarios_ran is None:
         scenarios_ran += 1
     if not no_progress:
@@ -165,10 +165,12 @@ def main(arguments=sys.argv[1:]):
     on_scenario_completed_handler = update_progress
     on_section_started = None
 
+    if verbosity >= 1:
+        on_action_error_handler = action_error
+
     if verbosity == 3:
         on_before_action_handler = before_action
         on_action_successful_handler = action_successful
-        on_action_error_handler = action_error
         on_scenario_started_handler = scenario_started
         on_scenario_completed_handler = scenario_completed
         on_section_started = section_started_handler
